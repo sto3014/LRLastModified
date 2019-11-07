@@ -83,7 +83,6 @@ function TaskFunc(context)
     local secs = os.time() - (prefs.numOfDays * 24 * 3600)
     log:trace("Last modified after date is: " .. os.date("%Y-%m-%d %H:%M:%S", secs))
     local resultPhotoSet = {}
-    local k = 0
 
     for p, s in pairs(photoKeyTable) do
         if s.dateTime ~= nil then
@@ -137,7 +136,7 @@ function TaskFunc(context)
                 myColl:removeAllPhotos()
                 log:trace("Add " .. numOfPhotos .. " new photos.")
                 local index = 0
-                for p, b in pairs(resultPhotoSet) do
+                for p in pairs(resultPhotoSet) do
                     index = index + 1
                     Progress:setPortionComplete(index, numOfPhotos)
 
@@ -157,7 +156,7 @@ end -- end TaskFunc
 --[[---------------------------------------------------------------------------
 stringToNumber function
 -----------------------------------------------------------------------------]]
-function stringToNumber (theVew, theString)
+function stringToNumber (theView, theString)
     return tonumber(theString)
 end
 --[[---------------------------------------------------------------------------
