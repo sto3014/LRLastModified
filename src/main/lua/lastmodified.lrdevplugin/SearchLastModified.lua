@@ -124,7 +124,6 @@ function TaskFunc(context)
             local myColl = catalog:createCollection(LOC "$$$/LRLastModified/Collection/Last Modified=Last Modified", nil, true)
 
             if myColl ~= nil then
-                log:trace("Remove existing photos.")
                 Progress = LrProgressScope({
                     -- title = LOC "$$$/LRLastModified/Progress/Get last modified photos=Get last modified photos",
                     title = LOC("$$$/LRLastModified/Progress/Add ^1 photos to collection=Add ^1 photos to collection", numOfPhotos)
@@ -133,7 +132,10 @@ function TaskFunc(context)
                 })
 
                 Progress:setPortionComplete(0, numOfPhotos)
-                myColl:removeAllPhotos()
+                if prefs.clearCollection then
+                    log:trace("Remove existing photos.")
+                    myColl:removeAllPhotos()
+                end
                 log:trace("Add " .. numOfPhotos .. " new photos.")
                 local index = 0
                 for p in pairs(resultPhotoSet) do
@@ -170,30 +172,40 @@ LrFunctionContext.callWithContext("showSearchLastModified", function(context)
     -- then notifications will be sent.
     local props = LrBinding.makePropertyTable(context)
     props.numOfDays = 5
+    props.clearCollection = false
 
     -- Create the contents for the dialog.
-    local content = factory:row {
-        -- Bind the table to the view.  This enables controls to be bound
-        -- to the named field of the 'props' table.
-
+    local content = factory:column {
+        spacing = factory:control_spacing(),
         bind_to_object = props,
+        factory:row {
+            -- Bind the table to the view.  This enables controls to be bound
+            -- to the named field of the 'props' table.
 
-        -- Add a checkbox and an edit_field.
 
-        factory:static_text {
-            title = LOC "$$$/LRLastModified/Dialog/Search/Text1=Last modified before",
+            -- Add a checkbox and an edit_field.
+
+            factory:static_text {
+                title = LOC "$$$/LRLastModified/Dialog/Search/Text1=Last modified before",
+            },
+
+            factory:edit_field {
+                value = LrView.bind("numOfDays"),
+                min = 1,
+                max = 100,
+                width_in_digits = 3,
+                string_to_value = stringToNumber
+            },
+
+            factory:static_text {
+                title = LOC "$$$/LRLastModified/Dialog/Search/Text2=day(s)",
+            },
         },
-
-        factory:edit_field {
-            value = LrView.bind("numOfDays"),
-            min = 1,
-            max = 100,
-            width_in_digits = 3,
-            string_to_value = stringToNumber
-        },
-
-        factory:static_text {
-            title = LOC "$$$/LRLastModified/Dialog/Search/Text2=day(s)",
+        factory:row {
+            factory:checkbox {
+                title = LOC "$$$/LRLastModified/Dialog/Search/Checkbox1=Clear collection",
+                value = LrView.bind("clearCollection")
+            }
         }
     } -- content
 
@@ -209,6 +221,7 @@ LrFunctionContext.callWithContext("showSearchLastModified", function(context)
     if (r == "ok") then
         local prefs = LrPrefs.prefsForPlugin()
         prefs.numOfDays = props.numOfDays
+        prefs.clearCollection = props.clearCollection
         log:trace("Search for last modified photos")
         LrFunctionContext.postAsyncTaskWithContext("Get Last Modified", TaskFunc)
     end

@@ -3,6 +3,7 @@
 "$$$/LRLastModified/Dialog/Search/Text1=Zuletzt bearbeitet vor"
 "$$$/LRLastModified/Dialog/Search/Text2=Tag(en)"
 "$$$/LRLastModified/Dialog/Search/Title=Suche zuletzt bearbeitet"
+"$$$/LRLastModified/Dialog/Search/Checkbox1=Leere Sammlung"
 "$$$/LRLastModified/Collection/Last Modified=Zuletzt bearbeitet"
 "$$$/LRLastModified/Progress/Get last modified photos=Ermittle zuletzt bearbeitete Fotos"
 "$$$/LRLastModified/Progress/Add ^1 photos to collection=Füge ^1 Fotos zur Sammlung hinzu"
