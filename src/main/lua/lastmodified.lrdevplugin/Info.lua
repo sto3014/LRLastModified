@@ -26,7 +26,7 @@ return {
 	LrToolkitIdentifier = 'at.heimbraeu.lightroom.lastmodified',
 
 	LrPluginName = LOC "Last modified",
-
+  
 	-- Add the menu item to the Library menu.
 	
 	LrLibraryMenuItems = {
@@ -35,7 +35,7 @@ return {
 		    file = "SearchLastModified.lua",
 		},
 	},
-	VERSION = { major=1, minor=0, revision=0, build=0, },
+	VERSION = { major=1, minor=1, revision=1, build=0, },
 
 }
 

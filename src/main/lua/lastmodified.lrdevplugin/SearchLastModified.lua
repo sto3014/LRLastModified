@@ -1,7 +1,6 @@
 --[[----------------------------------------------------------------------------
 SearchLastModified.lua
 ------------------------------------------------------------------------------]]
-
 -- Access the Lightroom SDK namespaces.
 local LrFunctionContext = import 'LrFunctionContext'
 local LrBinding = import 'LrBinding'
@@ -15,7 +14,8 @@ local LrPrefs = import("LrPrefs")
 
 -- Logger
 local log = LrLogger('LastModifiedLogger') -- the log file name
-log:enable("print")
+log:enable("logfile")
+
 
 --[[---------------------------------------------------------------------------
 Utilities
@@ -45,7 +45,7 @@ end
 --[[---------------------------------------------------------------------------
 Async task
 -----------------------------------------------------------------------------]]
-function TaskFunc(context)
+function TaskFunc(context)   
     local catalog = LrApplication.activeCatalog()
     log:trace("Catalog: " .. catalog:getPath())
 
@@ -165,7 +165,6 @@ end
 Main function
 -----------------------------------------------------------------------------]]
 LrFunctionContext.callWithContext("showSearchLastModified", function(context)
-
     -- Create dialog
     local factory = LrView.osFactory()
     -- Create a bindable table.  Whenever a field in this table changes
