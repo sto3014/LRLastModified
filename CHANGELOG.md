@@ -34,6 +34,17 @@ Add lastmodified.lrplugin with compiled files
 ### Added
 Add installation scripts
 ### Changed
-Add installation documentation
+Add installation documentation.
+The plug-in file name was renamed from LastModified.lrplugin to 
+LRLastModified.lrplugin. If you make an update now or in thenfuture, you have to
+remove the old file manually:  
+* On Windows
+    ```
+    <User Home>\AppData\Roaming\Adobe\Lightroom\Modules\LastModified.lrplugin
+    ```
+* On macOS 
+    ``` 
+    ~/Library/Application Support/Adobe/Lightroom/Modules/LastModified.lrplugin
+    ```
 ### Fixed
 
