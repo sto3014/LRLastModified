@@ -35,7 +35,7 @@ return {
 		    file = "SearchLastModified.lua",
 		},
 	},
-	VERSION = { major=1, minor=1, revision=1, build=0, },
+	VERSION = { major=1, minor=1, revision=1, build=1, },
 
 }
 
